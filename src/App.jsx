@@ -2,6 +2,40 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      guests: [
+        {
+          name: 'Treasure',
+          isConfirmed: false,
+        },
+        {
+          name: 'Nick',
+          isConfirmed: true,
+        },
+      ],
+    }
+  }
+
+  getTotalInvited(){
+    return this.state.guests.length;
+  } 
+
+  getTotalUnconfirmed() {
+    const unconfirmed = this.state.guests.filter((el) => {
+      return !el.isConfirmed;
+    });
+
+    return unconfirmed.length;
+
+  }
+
+  getAttending() {
+    
+  }
+
   render() {
     return (
       <div className="App">
