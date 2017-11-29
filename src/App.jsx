@@ -129,11 +129,17 @@ class App extends Component {
         <header>
           <h1>RSVP</h1>
           <p>A Treehouse App</p>
-          <Form newPendingGuest={this.newPendingGuest} value={this.state.newGuestName} onFormSubmit={this.onFormSubmit}/>
+          <Form 
+            newPendingGuest={this.newPendingGuest} 
+            value={this.state.newGuestName} 
+            onFormSubmit={this.onFormSubmit}/>
         </header>
         <div className="main">
           <NotResponded toggleNotResponded={this.toggleNotResponded} />
-          <Counter invited={this.getTotalInvited()} unconfirmed={this.getTotalUnconfirmed()} attending={this.getAttending()}/>
+          <Counter 
+            invited={this.getTotalInvited()} 
+            unconfirmed={this.getTotalUnconfirmed()} 
+            attending={this.getAttending()}/>
           <GuestList 
             guests={
               this.state.showConfirmed ?
