@@ -23,7 +23,7 @@ class App extends Component {
           pending: false,
         },
       ],
-      newGuestName: null,
+      newGuestName: '',
       showConfirmed: false,
     }
 
@@ -33,6 +33,7 @@ class App extends Component {
     this.toggleNotResponded = this.toggleNotResponded.bind(this);
     this.editGuest = this.editGuest.bind(this);
     this.toggleConfirm = this.toggleConfirm.bind(this);
+    this.updateName = this.updateName.bind(this);
   }
 
   getTotalInvited(){
@@ -123,6 +124,10 @@ class App extends Component {
     this.setState({guests: guestsArr}); 
   }
 
+  updateName(arr) {
+    this.setState({guests: arr});
+  }
+
   render() {
     return (
       <div className="App">
@@ -151,7 +156,8 @@ class App extends Component {
             } 
             onRemove={this.removeGuest}
             onEdit={this.editGuest}
-            onConfirm={this.toggleConfirm}
+            toggleConfirm={this.toggleConfirm}
+            updateName={this.updateName}
             />
         </div>
       </div>
