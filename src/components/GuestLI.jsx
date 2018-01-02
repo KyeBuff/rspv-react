@@ -44,6 +44,7 @@ class GuestLI extends Component {
   render() {
     const {i, pending, guests, toggleConfirm, isConfirmed, onRemove} = this.props;
     const {nameConfirmed, tempName} = this.state;
+
     return (
       <li key={i} 
           className={pending ? "pending" : "responded"}>

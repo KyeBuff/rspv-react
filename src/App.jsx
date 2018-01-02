@@ -12,16 +12,6 @@ class App extends Component {
     super(props);
     this.state = {
       guests: [
-        {
-          name: 'Treasure',
-          isConfirmed: false,
-          pending: false,
-        },
-        {
-          name: 'Nick',
-          isConfirmed: true,
-          pending: false,
-        },
       ],
       newGuestName: '',
       showConfirmed: false,
@@ -45,7 +35,6 @@ class App extends Component {
     });
 
     return unconfirmed;
-
   }
 
   getAttending() {
@@ -54,6 +43,8 @@ class App extends Component {
 
   newPendingGuest(e) {
 
+    //Used to create a new li to populate UI
+    //Pending bool controls class of li
     const guestsArr = [...this.state.guests];
     const pendingGuest = {
       name: null,
@@ -69,15 +60,13 @@ class App extends Component {
       this.setState({guests: guestsArr});
     } 
 
-    //update new guestName variable so previous if will not run
+    //update new guestName variable onchange
     this.setState({newGuestName});
 
-
-    //update guest name on change
-    //will show as a pending guest
+    //update guest name on change, using array element targeting as pendingGuest is now in array
     guestsArr[guestsArr.length-1].name = newGuestName;
 
-    //if no new name, remove last arr el
+    //if name value is empty, remove last arr el
     if(newGuestName.length === 0) {
       guestsArr.pop();
     }
@@ -91,6 +80,7 @@ class App extends Component {
 
     const guestsArr = [...this.state.guests];
 
+    //Update added guests pending status to false
     guestsArr[guestsArr.length-1].pending = false;
 
     this.setState({guests: guestsArr, newGuestName: ''});
@@ -124,6 +114,7 @@ class App extends Component {
   }
 
   render() {
+    const {newGuestName, showConfirmed, guests} = this.state;
     return (
       <div className="App">
         <header>
@@ -131,7 +122,7 @@ class App extends Component {
           <p>A Treehouse App</p>
           <Form 
             newPendingGuest={this.newPendingGuest} 
-            value={this.state.newGuestName} 
+            value={newGuestName} 
             onFormSubmit={this.onFormSubmit}/>
         </header>
         <div className="main">
@@ -142,12 +133,12 @@ class App extends Component {
             attending={this.getAttending()}/>
           <GuestList 
             guests={
-              this.state.showConfirmed ?
-                this.state.guests.filter((el) => {
+              showConfirmed ?
+                guests.filter((el) => {
                   return el.isConfirmed;
                 })
               :
-                this.state.guests
+                guests
             } 
             onRemove={this.removeGuest}
             onEdit={this.editGuest}
