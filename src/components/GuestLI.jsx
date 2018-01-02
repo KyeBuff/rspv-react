@@ -5,6 +5,7 @@ class GuestLI extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      //Toggle to show edit form
       nameConfirmed: true,
       tempName: '',
     }
@@ -15,55 +16,68 @@ class GuestLI extends Component {
   }
 
   showNameInput(name) {
+    //Sets tempName to edited guests name and shows form
     this.setState({nameConfirmed: false, tempName: name});
   }
 
   updateName(e) {
+    //temp name is updated on input change
     this.setState({tempName: e.target.value});
   }
 
   onSubmit(e) {
+
+    const {i, updateName} = this.props;
+
     e.preventDefault();
+
     this.setState({nameConfirmed: true});
 
     const arr = this.props.guests.slice();
 
-    arr[this.props.i].name = this.state.tempName;
+    arr[i].name = this.state.tempName;
 
-    this.props.updateName(arr);
+    //Calls props updateName function to pass array up to GuestList
+    updateName(arr);
   }
 
   render() {
+    const {i, pending, guests, toggleConfirm, isConfirmed, onRemove} = this.props;
+    const {nameConfirmed, tempName} = this.state;
     return (
-      <li key={this.props.i} 
-          className={this.props.pending ? "pending" : "responded"}>
-        { this.state.nameConfirmed ? 
-            (<span>{this.props.guests[this.props.i].name}</span>) 
+      <li key={i} 
+          className={pending ? "pending" : "responded"}>
+        { //Use nameConfirmed state to toggle between name and edit form
+          nameConfirmed ? 
+            (<span>{guests[i].name}</span>) 
           : 
             (
             <form 
               className="edit-name-form"
               onSubmit={this.onSubmit}>
               <input 
-              type="text" 
-              value={this.state.tempName}
-              onChange={this.updateName}
+                type="text" 
+                value={tempName}
+                onChange={this.updateName}
               />
             </form>
             )
         } 
+        {/*toggleConfirm and onRemove bubble up to App to interact with guests array state at top level*/}
         <label>
           <input 
             type="checkbox" 
-            checked={this.props.isConfirmed} 
-            onChange={()=> {this.props.toggleConfirm(this.props.i)}}
+            checked={isConfirmed} 
+            onChange={()=> {toggleConfirm(i)}}
           />
           Confirmed
         </label>
         <button 
-          onClick={() => this.showNameInput(this.props.guests[this.props.i].name)}
-        >edit</button>
-        <button onClick={() => {this.props.onRemove(this.props.i)}}>remove
+          onClick={() => this.showNameInput(guests[i].name)}
+        >
+        edit
+        </button>
+        <button onClick={() => {onRemove(i)}}>remove
         </button>
       </li>
     )
