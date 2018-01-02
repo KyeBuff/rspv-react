@@ -149,6 +149,12 @@ li button:last-child {
   background: rgba(88, 183, 205, .5);
 }
 
+li .edit-name-form {
+  display: 'inline';
+  margin: 0;
+  border: 0;
+}
+
 div > input:last-child {
   font-size: 1em;
   margin-left: 6px;

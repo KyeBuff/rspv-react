@@ -14,8 +14,8 @@ class GuestLI extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  showNameInput() {
-    this.setState({nameConfirmed: false});
+  showNameInput(name) {
+    this.setState({nameConfirmed: false, tempName: name});
   }
 
   updateName(e) {
@@ -42,11 +42,11 @@ class GuestLI extends Component {
           : 
             (
             <form 
-              style={{display: 'inline', margin: 0, border: 0}}
+              className="edit-name-form"
               onSubmit={this.onSubmit}>
               <input 
               type="text" 
-              value={this.state.name}
+              value={this.state.tempName}
               onChange={this.updateName}
               />
             </form>
@@ -61,9 +61,7 @@ class GuestLI extends Component {
           Confirmed
         </label>
         <button 
-        onClick={() => {
-          this.showNameInput();
-        }}
+          onClick={() => this.showNameInput(this.props.guests[this.props.i].name)}
         >edit</button>
         <button onClick={() => {this.props.onRemove(this.props.i)}}>remove
         </button>

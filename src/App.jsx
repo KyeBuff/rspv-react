@@ -31,7 +31,6 @@ class App extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.removeGuest = this.removeGuest.bind(this);
     this.toggleNotResponded = this.toggleNotResponded.bind(this);
-    this.editGuest = this.editGuest.bind(this);
     this.toggleConfirm = this.toggleConfirm.bind(this);
     this.updateName = this.updateName.bind(this);
   }
@@ -55,7 +54,7 @@ class App extends Component {
 
   newPendingGuest(e) {
 
-    const guestsArr = this.state.guests.slice();
+    const guestsArr = [...this.state.guests];
     const pendingGuest = {
       name: null,
       isConfirmed: false,
@@ -90,7 +89,7 @@ class App extends Component {
   onFormSubmit(e) {
     e.preventDefault();
 
-    const guestsArr = this.state.guests.slice();
+    const guestsArr = [...this.state.guests];
 
     guestsArr[guestsArr.length-1].pending = false;
 
@@ -99,7 +98,7 @@ class App extends Component {
   }
 
   removeGuest(i) {
-    const guestsArr = this.state.guests.slice();
+    const guestsArr = [...this.state.guests];
 
     guestsArr.splice(i, 1);
 
@@ -112,12 +111,8 @@ class App extends Component {
 
   }
 
-  editGuest() {
-
-  }
-
   toggleConfirm(i) {
-    const guestsArr = this.state.guests.slice();
+    const guestsArr = [...this.state.guests];
 
     guestsArr[i].isConfirmed = !guestsArr[i].isConfirmed;
 
